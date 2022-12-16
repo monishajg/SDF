@@ -88,17 +88,18 @@ public class Main { //need list and map
                     letterBuilder.append(line).append("\n");
                 }
                 
-            // 4.2 Split the templates
-            String[] letters = letterBuilder.toString().split("\n\n");
-                
-            // 4.3 Print out filled-in templates
-            for (String letter : letters) {
-            System.out.println(letter);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        // 4.2 Split the templates
+        String[] letters = letterBuilder.toString().split("\n\n");
+            
+        // 4.3 Print out filled-in templates
+        for (String letter : letters) {
+        System.out.println(letter);
         }
-
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+        
         }//for loop
+
     }//main
 }//class
