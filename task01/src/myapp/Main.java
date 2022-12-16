@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main { //need list and map
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException {
 
         // 1. Parse command line arguments
         String csvFileName = args[0];
@@ -85,7 +85,6 @@ public class Main { //need list and map
                             line = line.replace("<<" + key + ">>", values.get(i));
                         }
                     }
-                    letterBuilder.append(line).append("\n");
                 }
                 
         // 4.2 Split the templates
@@ -98,7 +97,7 @@ public class Main { //need list and map
         } catch (IOException e) {
         e.printStackTrace();
         }
-        
+
         }//for loop
 
     }//main
