@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +37,21 @@ public class Main { //need list and map
             String row;
             int rowNumber = 0;
             while ((row = csvReader.readLine()) != null) {
-                if (rowNumber == 0) { // 3.1.1 First row contains the variable names
+                if (rowNumber == 0) { // 3.1.1 Header contains the variable names
                     variableNames = row.split(",");
+                    
+                    variableNames = Arrays.copyOf(variableNames, variableNames.length + 1); // 2nd CSV contains salutation
+                    variableNames[variableNames.length - 1] = "salutation";
+                    
                     for (String variableName : variableNames) {
-                        dataMap.put(variableNames, new ArrayList<>());
-                        }
-                    } else {    // 3.1.2 Subsequent rows contain the data
+                        dataMap.put(variableName, new ArrayList<>());
+                    } else {    // 3.1.2 Rows after contain the data
                         String[] data = row.split(",");
                         for (int i = 0; i < variableNames.length; i++) {
                             String[] variables = data[i].split("\n");
+                        }
                         for (String variable : variables) {
-                            dataMap.get(variableNames[i]).add(variables);
+                            dataMap.get(variableNames[i]).add(variable);
                         }
                     }
                 }
@@ -58,15 +63,14 @@ public class Main { //need list and map
 
         // 4 Template File Format
         // 4.1 Read the template and perform the mail merge
-        for (int i = 0; i < dataMap.get("salutation").size(); i++)
+        for (int i = 0; i < dataMap.get("salutation").size(); i++) {
             try {
                 Scanner templateScanner = new Scanner(new FileReader(templateFileName));
-                StringBuilder emailBuilder = new StringBuilder();
+                StringBuilder letterBuilder = new StringBuilder();
                 
                 while (templateScanner.hasNextLine()) {
                     String line = templateScanner.nextLine();
                     
-                    // Find all variables in the line
                     Pattern pattern = Pattern.compile("<<(.+?)>>");
                     Matcher matcher = pattern.matcher(line);
                     
@@ -78,19 +82,20 @@ public class Main { //need list and map
                             line = line.replace("<<" + key + ">>", values.get(i));
                         }
                     }
-                    emailBuilder.append(line).append("\n");
+                    letterBuilder.append(line).append("\n");
                 }
                 
-                // 4.2 Split the merged email into individual emails
-                String[] emails = emailBuilder.toString().split("\n\n");
+                // 4.2 Split the templates
+                String[] letters = letterBuilder.toString().split("\n\n");
                 
-                // 4.3 Print out the individual emails
-                for (String email : emails) {
-                    System.out.println(email);
+                // 4.3 Print out filled-in templates
+                for (String letter : letters) {
+                    System.out.println(letter);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+        }
     }//main
 }//class
