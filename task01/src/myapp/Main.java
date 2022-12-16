@@ -47,6 +47,9 @@ public class Main { //need list and map
                         dataMap.put(variableName, new ArrayList<>());
                     } else {    // 3.1.2 Rows after contain the data
                         String[] data = row.split(",");
+                        
+                        dataMap.get("salutation").add(data[data.length - 1]);   // .get salutation
+                        
                         for (int i = 0; i < variableNames.length; i++) {
                             String[] variables = data[i].split("\n");
                         }
