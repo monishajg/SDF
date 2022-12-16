@@ -29,9 +29,23 @@ public class Main {
             String operator = parts[1];
             double operand2 = Double.parseDouble(parts[2]);
             double result = 0;
-            double $last = result;
+            double last = 0f;
 
-            switch (operator) {
+            if (parts[0].contains("$last") && parts[2].contains("$last")){ 
+                operand1 = last; 
+                operand2 = last; 
+              } else if (parts[0].contains("$last")) { 
+                operand1 = last;
+                operand2 = Float.parseFloat(parts[2]); 
+              } else if (parts[2].contains("$last")) { 
+                operand2 = last; 
+                operand1 = Float.parseFloat(parts[0]); 
+              } else { 
+                operand1 = Float.parseFloat(parts[0]); 
+                operand2 = Float.parseFloat(parts[2]); 
+              } 
+
+              switch (operator) {
                 case "+":
                     result = operand1 + operand2;
                     break;
@@ -47,8 +61,9 @@ public class Main {
                 default:
                     System.out.println("Invalid operator");
                     continue;
-            }
-
+                }
+                
+            last = result;
             System.out.println(result);
 
         }//while loop
