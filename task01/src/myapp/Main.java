@@ -48,7 +48,7 @@ public class Main { //need list and map
                     } else {    // 3.1.2 Rows after contain the data
                         String[] data = row.split(",");
                         
-                        dataMap.get("salutation").add(data[data.length - 1]);   // .get salutation
+                        dataMap.get("salutation").add(data[data.length - 1]);   // .get
                         
                         for (int i = 0; i < variableNames.length; i++) {
                             String[] variables = data[i].split("\n");
@@ -88,17 +88,17 @@ public class Main { //need list and map
                     letterBuilder.append(line).append("\n");
                 }
                 
-                // 4.2 Split the templates
-                String[] letters = letterBuilder.toString().split("\n\n");
+        // 4.2 Split the templates
+        String[] letters = letterBuilder.toString().split("\n\n");
                 
-                // 4.3 Print out filled-in templates
-                for (String letter : letters) {
-                    System.out.println(letter);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+        // 4.3 Print out filled-in templates
+        for (String letter : letters) {
+            System.out.println(letter);
         }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        }//for loop
     }//main
 }//class
